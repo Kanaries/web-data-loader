@@ -1,0 +1,33 @@
+{
+  "name": "web-data-loader",
+  "version": "0.0.1",
+  "description": "data loader tools for common datasource types (in browser)",
+  "main": "./build/index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "demo": "parcel ./examples/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kanaries/web-data-loader.git"
+  },
+  "keywords": [
+    "data-loader"
+  ],
+  "author": "jojocys",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kanaries/web-data-loader/issues"
+  },
+  "homepage": "https://github.com/Kanaries/web-data-loader#readme",
+  "devDependencies": {
+    "typescript": "^3.7.4"
+  },
+  "dependencies": {
+    "@types/papaparse": "^5.0.3",
+    "papaparse": "^5.1.1"
+  }
+}
