@@ -8,7 +8,6 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "demo": "parcel ./examples/index.html",
     "build": "tsc"
   },

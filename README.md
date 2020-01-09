@@ -7,10 +7,13 @@ data loader for data analytic product in working in browser
 web-data-loader allows you to load larget data files in browser. It supports stream data and runs in webworker which will not block the main thread while loading the data. web-data-loader also support stream data sampling, it now support `Reservoir Sampling` methods.
 
 ## Usage
+
+### Install
 ```bash
 npm i --save kanaries/web-data-loader
 ```
 
+### Examples
 in your project file:
 
 get user upload file
@@ -38,3 +41,6 @@ use web-data-loader to load the data with sampling.
 };
 
 ```
+
+## Docs
+documents can be found at [API Reference](https://kanaries.github.io/web-data-loader/)

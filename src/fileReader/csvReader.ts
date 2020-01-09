@@ -1,8 +1,12 @@
 import * as Papa from 'papaparse';
 
 import { DataSource, Record } from "../globalTypes";
+
 interface ReservoirSamplingConfig {
   type: 'reservoirSampling',
+  /**
+   * sample size(number of records left)
+   */
   size: number
 }
 
@@ -16,7 +20,7 @@ const maxWaitValue = 0.9999;
  * csvReader. load, parse and sampling for csv file in stream.
  * @param file File Type
  * @param config 
- * @param onLoading 
+ * @param onLoading loading process callback
  */
 export function csvReader (file: File, config: SamplingConfig = false, onLoading?: (value: number) => void) {
   return new Promise((resolve, reject) => {
@@ -28,6 +32,13 @@ export function csvReader (file: File, config: SamplingConfig = false, onLoading
   })
 }
 
+/**
+ * 
+ * @param file File Type
+ * @param resolve 
+ * @param reject 
+ * @param onLoading loading process callback
+ */
 function pureSteamReader (file: File, resolve: (value: any) => void, reject: (value: any) => void, onLoading?: (value: number) => void): void {
   const rows: any[] = [];
   let fields: string[] = [];
@@ -57,9 +68,14 @@ function pureSteamReader (file: File, resolve: (value: any) => void, reject: (va
 }
 
 /**
- * todo reservoir sampling is better to support stream data
+ * Reservoir Sampling
  * Algorithm R:
  * Vitter, Jeffrey S. (1 March 1985). "Random sampling with a reservoir" (PDF). ACM Transactions on Mathematical Software. 11 (1): 37–57. CiteSeerX 10.1.1.138.784. doi:10.1145/3147.3165.
+ * @param file 
+ * @param size sample size
+ * @param resolve 
+ * @param reject 
+ * @param onLoading loading process callback
  */
 function reservoirSampling (file: File, size: number, resolve: (value: any) => void, reject: (value: any) => void, onLoading?: (value: number) => void): void {
   const rows: any[] = [];
@@ -94,7 +110,12 @@ function reservoirSampling (file: File, size: number, resolve: (value: any) => v
   })
 }
 
-function table2json (fieldNames: any[], rows: any[][]): DataSource {
+/**
+ * table to json
+ * @param fieldNames list of field name, normally the first row of csv.
+ * @param rows data rows. the rest rows of csv.
+ */
+export function table2json (fieldNames: any[], rows: any[][]): DataSource {
   const dataSource: DataSource = [];
   for (let i = 0; i < rows.length; i++) {
     let record: Record = {};
