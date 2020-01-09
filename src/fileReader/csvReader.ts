@@ -12,6 +12,12 @@ const tickMode = 10000;
 
 const maxWaitValue = 0.9999;
 
+/**
+ * csvReader. load, parse and sampling for csv file in stream.
+ * @param file File Type
+ * @param config 
+ * @param onLoading 
+ */
 export function csvReader (file: File, config: SamplingConfig = false, onLoading?: (value: number) => void) {
   return new Promise((resolve, reject) => {
     if (!config) {

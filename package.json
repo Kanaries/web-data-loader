@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "data loader tools for common datasource types (in browser)",
   "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "directories": {
     "example": "examples"
   },
