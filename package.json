@@ -1,5 +1,5 @@
 {
-  "name": "web-data-loader",
+  "name": "@kanaries/web-data-loader",
   "version": "0.0.1",
   "description": "data loader tools for common datasource types (in browser)",
   "main": "./build/index.js",
@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "demo": "parcel ./examples/index.html"
+    "demo": "parcel ./examples/index.html",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

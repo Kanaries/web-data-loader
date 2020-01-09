@@ -1,4 +1,4 @@
-import Papa from 'papaparse';
+import * as Papa from 'papaparse';
 
 import { DataSource, Record } from "../globalTypes";
 interface ReservoirSamplingConfig {
