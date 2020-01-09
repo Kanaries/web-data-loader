@@ -1,6 +1,7 @@
 # web-data-loader
 ![](https://img.shields.io/github/license/kanaries/web-data-loader?color=%23FF7575)
 ![](https://img.shields.io/npm/v/@kanaries/web-data-loader?color=5BE7C6)
+![](https://travis-ci.com/Kanaries/web-data-loader.svg?branch=master)
 
 data loader for data analytic product in working in browser
 
