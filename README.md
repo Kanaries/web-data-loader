@@ -11,7 +11,7 @@ web-data-loader allows you to load larget data files in browser. It supports str
 
 ### Install
 ```bash
-npm i --save kanaries/web-data-loader
+npm i --save @kanaries/web-data-loader
 ```
 
 ### Examples
