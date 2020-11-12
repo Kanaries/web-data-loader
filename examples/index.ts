@@ -7,18 +7,18 @@ progressEle.style.width = '0%';
   ev: Event
 ) => {
   const file = (ev.target as HTMLInputElement).files[0];
-  FileReader.csvReader(
+  FileReader.csvReader({
     file,
-    {
+    config: {
       type: "reservoirSampling",
       size: 400
     },
-    value => {
+    onLoading: value => {
       console.log((value * 100).toFixed(2) + '%');
       const progressEle: HTMLDivElement = document.querySelector('#progress')
       progressEle.style.width =(value * 100).toFixed(2) + '%'
     }
-  ).then(data => console.log(data));
+  }).then(data => console.log(data));
   // FileReader.csvReader(file).then(data => console.log(data));
 };
 

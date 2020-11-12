@@ -16,13 +16,27 @@ const tickMode = 10000;
 
 const maxWaitValue = 0.9999;
 
+
+interface IcsvReaderProps {
+  file: File;
+  config?: SamplingConfig;
+  /**
+   * loading process callback
+   */
+  onLoading?: (value: number) => void;
+}
 /**
  * csvReader. load, parse and sampling for csv file in stream.
  * @param file File Type
  * @param config 
  * @param onLoading loading process callback
  */
-export function csvReader (file: File, config: SamplingConfig = false, onLoading?: (value: number) => void) {
+export function csvReader (props: IcsvReaderProps) {
+  const {
+    file,
+    config,
+    onLoading
+  } = props;
   return new Promise((resolve, reject) => {
     if (!config) {
       pureSteamReader(file, resolve, reject, onLoading);
@@ -58,7 +72,7 @@ function pureSteamReader (file: File, resolve: (value: any) => void, reject: (va
     },
     complete () {
       const dataSource: DataSource = table2json(fields, rows);
-      onLoading(1)
+      onLoading && onLoading(1)
       resolve(dataSource)
     },
     error (err) {
@@ -101,7 +115,7 @@ function reservoirSampling (file: File, size: number, resolve: (value: any) => v
     },
     complete () {
       const dataSource: DataSource = table2json(fields, rows);
-      onLoading(1)
+      onLoading && onLoading(1)
       resolve(dataSource)
     },
     error (err) {

@@ -1,6 +1,6 @@
 {
   "name": "@kanaries/web-data-loader",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "data loader tools for common datasource types (in browser)",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
