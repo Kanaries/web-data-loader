@@ -62,10 +62,12 @@ function pureSteamReader (file: File, resolve: (value: any) => void, reject: (va
     worker: true,
     step (results) {
       if (index === -1) {
-        fields = results.data;
+        fields = results.data as string[];
         estimateRowNum = file.size / fields.join(',').length;
       } else {
-        rows.push(results.data);
+        if (results.data as string[] && (results.data as string[]).length && (results.data as string[]).length === fields.length) {
+          rows.push(results.data);
+        }
         onLoading && (index % tickMode === 0) && onLoading(Math.min(index / estimateRowNum, maxWaitValue))
       }
       index++;
@@ -100,14 +102,16 @@ function reservoirSampling (file: File, size: number, resolve: (value: any) => v
     worker: true,
     step (results) {
       if (index === -1) {
-        fields = results.data;
+        fields = results.data as string[];
         estimateRowNum = file.size / fields.join(',').length;
-      } else if (index < size) {
-        rows.push(results.data);
-      } else {
-        let pos = Math.round(Math.random() * index);
-        if (pos < size) {
-          rows[pos] = results.data;
+      } else if (results.data as string[] && (results.data as string[]).length && (results.data as string[]).length === fields.length) {
+        if (index < size) {
+          rows.push(results.data);
+        } else {
+          let pos = Math.round(Math.random() * index);
+          if (pos < size) {
+            rows[pos] = results.data;
+          }
         }
       }
       onLoading && (index % tickMode === 0) && onLoading(Math.min(index / estimateRowNum, maxWaitValue))
