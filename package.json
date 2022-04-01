@@ -1,6 +1,6 @@
 {
   "name": "@kanaries/web-data-loader",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "data loader tools for common datasource types (in browser)",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -8,7 +8,7 @@
     "example": "examples"
   },
   "scripts": {
-    "dev": "parcel ./examples/index.html",
+    "dev": "vite",
     "build": "tsc"
   },
   "repository": {
@@ -25,7 +25,8 @@
   },
   "homepage": "https://github.com/Kanaries/web-data-loader#readme",
   "devDependencies": {
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "vite": "^2.9.1"
   },
   "dependencies": {
     "@types/papaparse": "^5.0.3",
