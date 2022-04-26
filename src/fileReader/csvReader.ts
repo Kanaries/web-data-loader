@@ -20,6 +20,7 @@ const maxWaitValue = 0.9999;
 interface IcsvReaderProps {
   file: File;
   config?: SamplingConfig;
+  encoding?: string;
   /**
    * loading process callback
    */
@@ -35,13 +36,14 @@ export function csvReader (props: IcsvReaderProps) {
   const {
     file,
     config,
-    onLoading
+    onLoading,
+    encoding = 'utf-8'
   } = props;
   return new Promise((resolve, reject) => {
     if (!config) {
-      pureSteamReader(file, resolve, reject, onLoading);
+      pureSteamReader(file, encoding, resolve, reject, onLoading);
     } else {
-      reservoirSampling(file, config.size, resolve, reject, onLoading);
+      reservoirSampling(file, encoding, config.size, resolve, reject, onLoading);
     }
   })
 }
@@ -53,13 +55,14 @@ export function csvReader (props: IcsvReaderProps) {
  * @param reject 
  * @param onLoading loading process callback
  */
-function pureSteamReader (file: File, resolve: (value: any) => void, reject: (value: any) => void, onLoading?: (value: number) => void): void {
+function pureSteamReader (file: File, encoding: string, resolve: (value: any) => void, reject: (value: any) => void, onLoading?: (value: number) => void): void {
   const rows: any[] = [];
   let fields: string[] = [];
   let index = -1;
   let estimateRowNum = 1;
   Papa.parse(file, {
     worker: true,
+    encoding,
     step (results) {
       if (index === -1) {
         fields = results.data as string[];
@@ -93,13 +96,14 @@ function pureSteamReader (file: File, resolve: (value: any) => void, reject: (va
  * @param reject 
  * @param onLoading loading process callback
  */
-function reservoirSampling (file: File, size: number, resolve: (value: any) => void, reject: (value: any) => void, onLoading?: (value: number) => void): void {
+function reservoirSampling (file: File, encoding: string, size: number, resolve: (value: any) => void, reject: (value: any) => void, onLoading?: (value: number) => void): void {
   const rows: any[] = [];
   let fields: string[] = [];
   let index = -1;
   let estimateRowNum = 1;
   Papa.parse(file, {
     worker: true,
+    encoding,
     step (results) {
       if (index === -1) {
         fields = results.data as string[];

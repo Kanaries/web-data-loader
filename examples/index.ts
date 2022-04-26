@@ -9,6 +9,7 @@ progressEle.style.width = '0%';
   const file = (ev.target as HTMLInputElement).files![0];
   FileReader.csvReader({
     file,
+    // encoding: 'GB2312',
     config: {
       type: "reservoirSampling",
       size: 400
