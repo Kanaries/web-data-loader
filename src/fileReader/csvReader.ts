@@ -59,19 +59,19 @@ function pureSteamReader (file: File, encoding: string, resolve: (value: any) =>
   const rows: any[] = [];
   let fields: string[] = [];
   let index = -1;
-  let estimateRowNum = 1;
+  let loadedSize = 0;
   Papa.parse(file, {
     worker: true,
     encoding,
     step (results) {
       if (index === -1) {
         fields = results.data as string[];
-        estimateRowNum = file.size / fields.join(',').length;
+        loadedSize += fields.join(',').length;
       } else {
         if (results.data as string[] && (results.data as string[]).length && (results.data as string[]).length === fields.length) {
           rows.push(results.data);
         }
-        onLoading && (index % tickMode === 0) && onLoading(Math.min(index / estimateRowNum, maxWaitValue))
+        onLoading && onLoading(loadedSize / file.size)
       }
       index++;
     },
