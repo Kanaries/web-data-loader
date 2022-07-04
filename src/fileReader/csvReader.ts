@@ -64,15 +64,15 @@ function pureSteamReader (file: File, encoding: string, resolve: (value: any) =>
     worker: true,
     encoding,
     step (results) {
+      loadedSize += (results.data as string[]).join(',').length;
       if (index === -1) {
         fields = results.data as string[];
-        loadedSize += fields.join(',').length;
       } else {
         if (results.data as string[] && (results.data as string[]).length && (results.data as string[]).length === fields.length) {
           rows.push(results.data);
         }
-        onLoading && onLoading(loadedSize / file.size)
       }
+      onLoading && (index % tickMode === 0) && onLoading(loadedSize / file.size)
       index++;
     },
     complete () {
@@ -100,14 +100,14 @@ function reservoirSampling (file: File, encoding: string, size: number, resolve:
   const rows: any[] = [];
   let fields: string[] = [];
   let index = -1;
-  let estimateRowNum = 1;
+  let loadedSize = 0;
   Papa.parse(file, {
     worker: true,
     encoding,
     step (results) {
+      loadedSize += (results.data as string[]).join(',').length;
       if (index === -1) {
         fields = results.data as string[];
-        estimateRowNum = file.size / fields.join(',').length;
       } else if (results.data as string[] && (results.data as string[]).length && (results.data as string[]).length === fields.length) {
         if (index < size) {
           rows.push(results.data);
@@ -118,7 +118,7 @@ function reservoirSampling (file: File, encoding: string, size: number, resolve:
           }
         }
       }
-      onLoading && (index % tickMode === 0) && onLoading(Math.min(index / estimateRowNum, maxWaitValue))
+      onLoading && (index % tickMode === 0) && onLoading(loadedSize / file.size)
       index++;
     },
     complete () {
