@@ -29,13 +29,15 @@ use web-data-loader to load the data with sampling.
 ) => {
   const file = (ev.target as HTMLInputElement).files[0];
   FileReader.csvReader(
-    file,
     {
-      type: "reservoirSampling",
-      size: 400
-    },
-    value => {
-      console.log((value * 100).toFixed(2) + '%');
+      file: file,
+      config: {
+        type: "reservoirSampling",
+        size: 400
+      },
+      onLoading: value => {
+        console.log((value * 100).toFixed(2) + '%');
+      }
     }
   ).then(data => console.log(data));
   // FileReader.csvReader(file).then(data => console.log(data));
